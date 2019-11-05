@@ -1,0 +1,59 @@
+{
+  "director_configuration": {
+    "ntp_servers_string": "169.254.169.123",
+    "metrics_ip": null,
+    "resurrector_enabled": false,
+    "director_hostname": null,
+    "max_threads": null,
+    "custom_ssh_banner": null,
+    "opentsdb_ip": null,
+    "director_worker_count": 5,
+    "post_deploy_enabled": false,
+    "bosh_recreate_on_next_deploy": false,
+    "bosh_recreate_persistent_disks_on_next_deploy": false,
+    "retry_bosh_deploys": false,
+    "keep_unreachable_vms": false,
+    "identification_tags": {},
+    "skip_director_drain": false,
+    "job_configuration_on_tmpfs": false,
+    "database_type": "internal",
+    "blobstore_type": "local",
+    "local_blobstore_options": {
+      "tls_enabled": true
+    },
+    "hm_pager_duty_options": {
+      "enabled": false
+    },
+    "hm_emailer_options": {
+      "enabled": false
+    },
+    "encryption": {
+      "keys": [],
+      "providers": []
+    }
+  },
+  "dns_configuration": {
+    "excluded_recursors": [],
+    "recursor_timeout": null,
+    "handlers": []
+  },
+  "security_configuration": {
+    "trusted_certificates": null,
+    "generate_vm_passwords": true,
+    "opsmanager_root_ca_trusted_certs": false
+  },
+  "syslog_configuration": {
+    "enabled": false
+  },
+  "iaas_configuration": {
+    "guid": "9185075323f5135b848f",
+    "name": "default",
+    "additional_cloud_properties": {},
+    "iam_instance_profile": null,
+    "security_group": "sg-0ba6de99ac396fbc2",
+    "key_pair_name": "pcf-aws-ops-manager-key",
+    "region": "eu-west-2",
+    "encrypted": false,
+    "kms_key_arn": null
+  }
+}

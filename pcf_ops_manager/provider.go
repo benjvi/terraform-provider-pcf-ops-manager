@@ -1,12 +1,17 @@
 package pcf_ops_manager
 
 import (
+	"crypto/tls"
+	"github.com/hashicorp/go-cleanhttp"
+	"github.com/hashicorp/terraform/helper/logging"
 	"github.com/hashicorp/terraform/helper/schema"
+	"net/http"
 )
 
 type OpsmanClient struct {
 	target, token, clientId, clientSecret, username, password string
 	skipSslValidation bool
+	httpClient *http.Client
 }
 
 func Provider() *schema.Provider {
@@ -56,16 +61,28 @@ func Provider() *schema.Provider {
 		},
 		ResourcesMap: map[string]*schema.Resource{
 			"pcfom_director": resourcePcfDirector(),
+			"pcfom_tile": resourcePcfTile(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
 }
 
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
+	c := cleanhttp.DefaultClient()
+	if d.Get("skip_ssl_validation").(bool) {
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			DisableCompression: true,
+		}
+		c.Transport = logging.NewTransport("pcf_ops_manager", tr)
+	} else {
+		c.Transport = logging.NewTransport("pcf_ops_manager", c.Transport)
+	}
 	om := &OpsmanClient{
 		target: d.Get("target_hostname").(string),
 		token: d.Get("token").(string),
 		skipSslValidation: d.Get("skip_ssl_validation").(bool),
+		httpClient: c,
 		//TODO
 	}
 	return om, nil

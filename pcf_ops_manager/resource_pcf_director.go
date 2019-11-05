@@ -37,15 +37,14 @@ func resourcePcfDirector() *schema.Resource {
 			"force_delete": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Default:  true,
-				Description: "(not implemented) - Continue with deletion even when there products deployed (this will destroy everything!)",
+				Default:  false,
+				Description: "(not implemented) - Continue with deletion even when there are products deployed (this will destroy everything!)",
 			},
 		},
 	}
 }
 
 func resourcePcfDirectorCreate(d *schema.ResourceData, m interface{}) error {
-
 	return resourcePcfDirectorUpdate(d, m)
 }
 
